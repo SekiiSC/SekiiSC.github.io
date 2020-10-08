@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <body onload="loadPieces()">
+        <button onclick="nextPiece()">NEXT</button>
+        <h1>Current Piece</h1>
+        <p id="current-piece"></p>
+        <h2>Next Piece</h2>
+        <p id="next-piece"></p>
+        <script>
+            var allPieces = [
+                "<img src=\"images/I.jpg\">",
+                "<img src=\"images/J.jpg\">",
+                "<img src=\"images/L.jpg\">",
+                "<img src=\"images/O.jpg\">",
+                "<img src=\"images/S.jpg\">",
+                "<img src=\"images/T.jpg\">",
+                "<img src=\"images/Z.jpg\">"
+            ];
+            var queue = [];
+            function loadPieces() {
+                addToQueue();
+                addToQueue();
+                document.getElementById("next-piece").innerHTML = allPieces[queue.shift()];
+            }
+
+            function nextPiece() {
+                var i = queue.shift();
+                document.getElementById("current-piece").innerHTML = document.getElementById("next-piece").innerHTML;
+                document.getElementById("next-piece").innerHTML = allPieces[i];
+
+                if (queue.length < 7) {
+                    addToQueue();
+                }
+            }
+
+            function addToQueue() {
+                var numbers = [0, 1, 2, 3, 4, 5, 6];
+                var n = 7;
+                var i, temp;
+                while (n  > 0) {
+                    i = Math.floor(Math.random() * n);
+                    n = n - 1;
+
+                    temp = numbers[n];
+                    numbers[n] = numbers[i];
+                    numbers[i] = temp;
+                }
+                for (i = 0; i < 7; ++i) {
+                    queue.push(numbers[i]);
+                }
+            }
+        </script>
+    </body>
+</html>
